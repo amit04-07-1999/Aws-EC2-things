@@ -8,6 +8,7 @@
   - **22** for SSH
   - **80** for HTTP
   - **443** for HTTPS
+- Go to the instance and select the **Security** option, then **Security Groups**. Edit inbound rules and add your custom TCP PORT with IPv4 as the IP version.
 - Allocate and associate an Elastic IP if needed.
 
 ---
@@ -54,8 +55,8 @@
 - Install Node.js and npm using the NodeSource repository for the latest version.
 - **Command Example**:
   ```bash
+  curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
   sudo apt install -y nodejs
-  sudo apt install npm
   node -v
   npm -v
   ```
