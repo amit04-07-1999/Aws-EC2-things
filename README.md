@@ -8,7 +8,7 @@
   - **22** for SSH
   - **80** for HTTP
   - **443** for HTTPS
-- Go to the instance and select the **Security** option, then **Security Groups**. Edit inbound rules and add your custom TCP PORT with IPv4 as the IP version.
+- Go to the instance and select the **Security** option, then **Security Groups**. Edit inbound rules and add your custom TCP port with IPv4 as the IP version.
 - Allocate and associate an Elastic IP if needed.
 
 ---
@@ -55,8 +55,8 @@
 - Install Node.js and npm using the NodeSource repository for the latest version.
 - **Command Example**:
   ```bash
-  curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
   sudo apt install -y nodejs
+  sudo apt install npm
   node -v
   npm -v
   ```
@@ -78,6 +78,7 @@
 
 - Install Nginx and start the service.
 - **Command Example**:
+
   ```bash
   sudo apt install nginx -y
   sudo systemctl start nginx
@@ -87,11 +88,13 @@
 - Configure Nginx as a reverse proxy:
 
   1. Open the default site configuration file.
+
      ```bash
      sudo nano /etc/nginx/sites-available/default
      ```
-  
+
   2. Replace its contents with:
+
      ```nginx
      server {
          listen 80;
@@ -101,7 +104,7 @@
          return 301 https://$host$request_uri;
      }
      ```
-  
+
   3. Test and reload the configuration:
      ```bash
      sudo nginx -t
@@ -115,12 +118,14 @@
 - Install Certbot and its Nginx plugin.
 - Obtain an SSL certificate for your domain.
 - **Command Example**:
+
   ```bash
   sudo apt install certbot python3-certbot-nginx -y
   sudo certbot --nginx -d YOUR-DOMAIN.com -d www.YOUR-DOMAIN.com
   ```
 
 - Update the Nginx configuration for HTTPS:
+
   ```nginx
   server {
       listen 443 ssl;
@@ -199,7 +204,39 @@
 
 ---
 
-## 12. **Enable Firewall and Allow Ports**
+## 12. **Additional Commands**
+
+- **Remove a file:**
+
+  ```bash
+  sudo rm -rf FILE-NAME
+  ```
+
+- **View active ports:**
+
+  ```bash
+  sudo lsof -i -P -n | grep LISTEN
+  ```
+
+- **Create a new folder:**
+
+  ```bash
+  mkdir new_folder
+  ```
+
+- **Upload HTML files to Nginx:**
+  1. Navigate to the web server directory:
+     ```bash
+     cd /var/www
+     ```
+  2. Copy your HTML files:
+     ```bash
+     sudo cp -r /home/ubuntu/YOUR-HTML-FILE /var/www/YOUR-HTML-FILE
+     ```
+
+---
+
+## 13. **Enable Firewall and Allow Ports**
 
 - Configure the Uncomplicated Firewall (UFW) to allow necessary ports:
   ```bash
@@ -217,4 +254,3 @@
 - **Backup and Maintenance**: Regularly back up your server and monitor system performance.
 - **Automated Deployment**: Consider setting up a CI/CD pipeline to streamline future updates.
 - **Test HTTPS**: Ensure your domain is properly secured by testing it with online SSL validation tools.
-
